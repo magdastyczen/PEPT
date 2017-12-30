@@ -10,13 +10,10 @@ import math
 class Scyntylator:
     LICZBA = 0    
     
-    def __init__(self):
-        self._wierzcholki = []
+    def __init__(self, w = None):
+        self._wierzcholki = w
         self._id = Scyntylator.LICZBA
         Scyntylator.LICZBA += 1
-    
-    def __init__(self, w):
-        self._wierzcholki = w
     
     def wspWalc(self):
         return self._wierzcholki
@@ -24,5 +21,13 @@ class Scyntylator:
     def wspKart(self):
         kart = []
         for p in self._wierzcholki:
-            kart.append([p[0]*math.cos(math.radians(p[1])), p[0]*math.sin(math.radians(p[1])), p[2] )
+            kart.append([p[0]*math.cos(p[1]), p[0]*math.sin(p[1]), p[2]] )
         return kart
+        
+    def wspKart2D(self):
+        x = []
+        y = []
+        for p in self._wierzcholki:
+            x.append(p[0]*math.cos(p[1]))
+            y.append(p[0]*math.sin(p[1]))
+        return (x, y)

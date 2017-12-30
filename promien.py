@@ -5,6 +5,19 @@ Created on Fri Dec 29 13:19:40 2017
 @author: magda
 """
 
+class Promien:
+    def __init__(self, r = 0, phi = 0, z = 0, theta = 0, alpha = 0):
+        self._phi = phi
+        self._theta = theta
+        self._alpha = alpha
+        self._r = r
+        self._z = z
+        
+    def dajArg(self):
+        return (self._r, self._phi, self._z, self._theta, self._alpha)
+
+
+"""
 import math
 import numpy
 import numpy as np
@@ -47,7 +60,7 @@ np.savetxt('test.out', theta, delimiter=',')
 #-----------------------------------------------------------------------------
 
 #test czy rozklad jest wlasciwy
-"""
+
 def testrozkladu(r_list, fi_list, beta_list):
     punktprzeciecia = []
     for r, fi, beta in zip(r_list, fi_list, beta_list):
@@ -65,7 +78,7 @@ def testrozkladu(r_list, fi_list, beta_list):
 
 #Wywolujemy funkcje z odpowiednimi argumentami, a jej wynik od razu przypisujemy do macierzy punktprzeciecia:
 punktprzeciecia = testrozkladu(r_list = rays[:,1], fi_list = rays[:,0], beta_list = rays[:,2]) 
-"""
+
 
 
 def obszarszukania(a, b, c1, c2):
@@ -105,7 +118,6 @@ def obszarszukania(a, b, c1, c2):
 
 #print(wierzcholek1plus)
 
-"""
 #wyznaczenie prostej w przestrzeni
 def plaszczyznaXY():
     XY = []
@@ -137,4 +149,4 @@ def plaszczyznaXY():
         obszar.append([a, b, c1, c2])
         m = m + 1
     return obszar
-    """
+"""
