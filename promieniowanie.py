@@ -7,7 +7,6 @@ Created on Sat Dec 30 12:44:50 2017
 import scipy.stats as st
 import math
 import numpy as np
-import matplotlib.pyplot as plt
 
 from promien import Promien
 
@@ -28,29 +27,37 @@ class Promieniowanie:
         for r, p, z, t, a in zip(r, phi, z, theta, alpha):
             self._promienie.append(Promien(r, p, z, t, a))
             
-        self._fig = plt.figure()
-
-            
-    def rysuj(self):
+    def rzutuj(self):
+        lista_x = []
+        lista_y = []
         for p in self._promienie:
             r, p, z, t, a = p.dajArg()
-            self.rysujPromien(r, p, t)
+            x, y = self.wyznaczOdcinek(r, p, t)
+            lista_x.append(x)
+            lista_y.append(y)
+        return (lista_x, lista_y)
         
-        self._fig.show()
-
-        
-    def rysujPromien(self, r, phi, theta, length=10):
+    def wyznaczOdcinek(self, r, phi, theta, length=200):
         x = r*math.cos(phi)
         y = r*math.sin(phi)
         angle = math.pi/2 - theta
         
-        endy = length * math.sin(math.radians(angle))
-        endx = length * math.cos(math.radians(angle))
+        leny = length * math.sin(angle)
+        lenx = length * math.cos(angle)
+        
+        endx=x+lenx
+        endy=y+leny
+        x-=lenx
+        y-=leny
+        
+        
+        return ([x, endx], [y, endy])
+        
+    def wypiszPhi(self):
+        for p in self._promienie:
+            r, p, z, t, a = p.dajArg()
+            print(p)
 
-        ax = plt.subplot(111)
-        ax.set_ylim([0, 10])   # set the bounds to be 10, 10
-        ax.set_xlim([0, 10])
-        ax.plot([x, endx], [y, endy])
 
         
     @staticmethod
