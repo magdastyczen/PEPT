@@ -28,6 +28,6 @@ class Scyntylator:
         x = []
         y = []
         for p in self._wierzcholki:
-            x.append(p[0]*math.cos(p[1]))
-            y.append(p[0]*math.sin(p[1]))
+            x.append(p[0]*math.sin(p[1]))
+            y.append(p[0]*math.cos(p[1]))
         return (x, y)

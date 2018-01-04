@@ -5,6 +5,8 @@ Created on Fri Dec 29 13:19:40 2017
 @author: magda
 """
 
+import math
+
 class Promien:
     def __init__(self, r = 0, phi = 0, z = 0, theta = 0, alpha = 0):
         self._phi = phi
@@ -12,6 +14,10 @@ class Promien:
         self._alpha = alpha
         self._r = r
         self._z = z
+        
+    def dajProstaKart(self):
+        a = (math.tan(math.pi/2 - self._theta))
+        return (a, -1, math.sin(self._phi)*self._r - a*self._r*math.cos(self._phi))
         
     def dajArg(self):
         return (self._r, self._phi, self._z, self._theta, self._alpha)

@@ -13,15 +13,21 @@ import math
 
 det = Detektor()
 
-det.generujScyntylatory(48, 42.50, 0, math.radians(7.5))
-det.generujScyntylatory(48, 46.75, math.radians(3.75), math.radians(7.5))
-det.generujScyntylatory(96, 57.50, math.radians(1.875), math.radians(3.75))
+det.dodajSegment(48, 42.50, 0, math.radians(7.5))
+det.dodajSegment(48, 46.75, math.radians(3.75), math.radians(7.5))
+det.dodajSegment(96, 57.50, math.radians(1.875), math.radians(3.75))
 
-pr = Promieniowanie(100)
+pr = Promieniowanie(200)
 
 ekran = Ekran()
 ekran.rysujDetektor(det)
 ekran.rysujPromienie(pr)
-
 ekran.pokaz()
 
+s = []
+
+for prn in pr._promienie:
+    p = prn.dajProstaKart()
+    s += det.dajScyntylatoryZZakresu(p)
+    
+ekran.rysujScyntylatory(s)
