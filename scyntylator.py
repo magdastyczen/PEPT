@@ -21,7 +21,7 @@ class Scyntylator:
     def wspKart(self):
         kart = []
         for p in self._wierzcholki:
-            kart.append([p[0]*math.cos(p[1]), p[0]*math.sin(p[1]), p[2]] )
+            kart.append((p[0]*math.sin(p[1]), p[0]*math.cos(p[1]), p[2]))
         return kart
         
     def wspKart2D(self):

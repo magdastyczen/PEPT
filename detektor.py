@@ -44,12 +44,20 @@ class Detektor:
             segment._n
             s+="Segment składa się z {} scyntylatorów.\n".format(segment._n)
         return s
+    
+    def dajScyntylatoryTrafioneXY(self, prosta):
+        scyntylatory = self.dajScyntylatoryZZakresu(prosta)
+        ret = []
+        for s in scyntylatory:
+            if Detektor.testXY(s, prosta):
+                ret += [s]
+        return ret
         
     def dajScyntylatoryZZakresu(self, prosta, zakres=2.05):
         z1, z2 = Detektor.liczZakres(prosta, zakres)
-        self.rysujProsta(prosta)
-        self.rysujProsta(z1)
-        self.rysujProsta(z2)
+        #self.rysujProsta(prosta)
+        #self.rysujProsta(z1)
+        #self.rysujProsta(z2)
         scyntylatory = []
         for segment in self._segmenty:
             x1_seg = []
@@ -76,25 +84,50 @@ class Detektor:
                 else:
                     zakres2.append((x,y))
                     
-            if(len(zakres1) != 4 or len(zakres2)!=4):
+                    
+                    
+            phi = []
+            if len(zakres1) == 4 and len(zakres2) == 4:
+                phi1 = map(Detektor.liczPhi, zakres1)
+                phi2 = map(Detektor.liczPhi, zakres2)
+                phi = [Detektor.wyznaczSkrajnePhi(phi1), Detektor.wyznaczSkrajnePhi(phi2)]
+            elif len(zakres1) + len(zakres2) <= 1:
                 continue
+            else:
+                phi1 = map(Detektor.liczPhi, zakres1 + zakres2)
+                phi = [Detektor.wyznaczSkrajnePhi(phi1)]
+#                for p in zakres1:
+#                    self._plot.scatter(p[0], p[1], s=50, c='r')
+#                for p in zakres2:
+#                    self._plot.scatter(p[0], p[1], s=50, c='y')
             """        
             for p in zakres1:
                 self._plot.scatter(p[0], p[1], s=50, c='r')
             for p in zakres2:
                 self._plot.scatter(p[0], p[1], s=50, c='y')
             """
-            
-            phi1 = map(Detektor.liczPhi, zakres1)
-            phi2 = map(Detektor.liczPhi, zakres2)
-            
-            phi1 = Detektor.wyznaczSkrajnePhi(phi1);
-            phi2 = Detektor.wyznaczSkrajnePhi(phi2);
-            
-            scyntylatory += self.dajScyntylator(phi1, segment) + self.dajScyntylator(phi2, segment)
+            for kat in phi:
+                scyntylatory += self.dajScyntylator(kat, segment)
             #return [(math.degrees(phi1_min), math.degrees(phi1_max)),(math.degrees(phi2_min), math.degrees(phi2_max))]
         
         return scyntylatory
+        
+    @staticmethod
+    def testXY(scyntylator, promienXY):
+        wsp = list(set(scyntylator.wspKart()))
+        pnad, ppod = (0, 0)
+        for w in wsp:
+            if w[1] < Detektor.liczProsta(promienXY + (w[0],)):
+                ppod += 1
+            else:
+                pnad += 1
+        
+        if ppod > 0 and pnad > 0:
+            return True
+        else: 
+            return False
+        
+        
         
     def dajScyntylator(self, zakres_phi, seg): #zakres_phi = (min, max)
         phi1 = 2*math.pi - seg._theta0 if zakres_phi[0] - seg._theta0 < 0 else zakres_phi[0] - seg._theta0
@@ -104,13 +137,13 @@ class Detektor:
         i2 = int(math.floor((phi2)/seg._theta))
         
         if phi1 > phi2 and abs(phi1-phi2) > math.pi:
-            print("Segment {}: phi0 = {}, phi1 = {}".format(seg._r, phi1, phi2))
-            print("Segment {}: Scyntylatory[{}:{}] + Scyntylatory[{}:{}]".format(seg._r, i2,'', '', i1))
-            return seg._scyntylatory[i1:] + seg._scyntylatory[:i2]
+            #print("Segment {}: phi0 = {}, phi1 = {}".format(seg._r, phi1, phi2))
+            #print("Segment {}: Scyntylatory[{}:{}] + Scyntylatory[{}:{}]".format(seg._r, i1,'', '', i2+1))
+            return seg._scyntylatory[i1:] + seg._scyntylatory[:i2+1]
         else:
-            print("Segment {}: phi0 = {}, phi1 = {}".format(seg._r, phi1, phi2))
-            print("Segment {}: Scyntylatory[{}:{}]".format(seg._r, i1,i2+1))
-            return seg._scyntylatory[i1:i2+1]
+            #print("Segment {}: phi0 = {}, phi1 = {}".format(seg._r, phi1, phi2))
+            #print("Segment {}: Scyntylatory[{}:{}]".format(seg._r, i1,i2+1))
+            return seg._scyntylatory[min(i1,i2):max(i1,i2)+1]
             
         
     
