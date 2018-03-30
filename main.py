@@ -32,9 +32,11 @@ s = []
 for prn in pr._promienie:
     #p = prn.dajProstaKart()
     proste = prn.dajProste()
-    pxy = proste[:3]
-    pyz = proste[3:]
-    s += det.dajScyntylatoryTrafioneXY(pxy)
+#    pxy = proste[:3]
+#    pyz = proste[3:]
+#    s += det.dajScyntylatoryTrafioneXY(pxy)
+    s += det.dajScyntylatoryTrafione(proste)
+
     #s += det.dajScyntylatoryZZakresu(p)
  
 

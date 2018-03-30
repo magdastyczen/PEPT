@@ -53,6 +53,17 @@ class Detektor:
                 ret += [s]
         return ret
         
+    def dajScyntylatoryTrafione(self, proste):
+        pxy = proste[:3]
+        pyz = proste[3:]
+        scyntylatory = self.dajScyntylatoryTrafioneXY(pxy)
+        ret = []
+        for s in scyntylatory:
+            if Detektor.testYZ(s, pyz):
+                ret += [s]
+        return ret
+        
+        
     def dajScyntylatoryZZakresu(self, prosta, zakres=2.05):
         z1, z2 = Detektor.liczZakres(prosta, zakres)
         #self.rysujProsta(prosta)
@@ -126,7 +137,21 @@ class Detektor:
             return True
         else: 
             return False
+            
+    @staticmethod
+    def testYZ(scyntylator, promienYZ):
+        wsp = list(set(scyntylator.wspKart()))
+        pnad, ppod = (0, 0)
+        for w in wsp:
+            if w[2] < Detektor.liczProsta(promienYZ + (w[1],)):
+                ppod += 1
+            else:
+                pnad += 1
         
+        if ppod > 0 and pnad > 0:
+            return True
+        else: 
+            return False
         
         
     def dajScyntylator(self, zakres_phi, seg): #zakres_phi = (min, max)
