@@ -12,7 +12,7 @@ from ekran import Ekran
 import math
 import time
 
-start = time.time()
+#start = time.time()
 
 det = Detektor()
 
@@ -20,21 +20,24 @@ det.dodajSegment(48, 42.50, 0, math.radians(7.5))
 det.dodajSegment(48, 46.75, math.radians(3.75), math.radians(7.5))
 det.dodajSegment(96, 57.50, math.radians(1.875), math.radians(3.75))
 
-pr = Promieniowanie(10**3)
+pr = Promieniowanie(20)
 
-#ekran = Ekran()
-#ekran.rysujDetektor(det)
-#ekran.rysujPromienie(pr)
-#ekran.pokaz()
+ekran = Ekran()
+ekran.rysujDetektor(det)
+ekran.rysujPromienie(pr)
+ekran.pokaz()
 
 s = []
 
 for prn in pr._promienie:
-    p = prn.dajProstaKart()
-    s += det.dajScyntylatoryTrafioneXY(p)
+    #p = prn.dajProstaKart()
+    proste = prn.dajProste()
+    pxy = proste[:3]
+    pyz = proste[3:]
+    s += det.dajScyntylatoryTrafioneXY(pxy)
     #s += det.dajScyntylatoryZZakresu(p)
  
 
-#ekran.rysujScyntylatory(s)
-end = time.time()
-print(end-start)
+ekran.rysujScyntylatory(s)
+#end = time.time()
+#print(end-start)

@@ -22,17 +22,29 @@ class Promieniowanie:
         alpha = Promieniowanie.rozkladCos(n, 0, math.pi*2)
         phi = Promieniowanie.rozkladCos(n)
         r = np.random.uniform(low=0, high=58.45, size=(n,1))
-        z = np.random.uniform(low=-25, high=25, size=(n,1))
+        z = np.random.uniform(low=0, high=25, size=(n,1))
         
         for r, p, z, t, a in zip(r, phi, z, theta, alpha):
             self._promienie.append(Promien(r, p, z, t, a))
             
-    def rzutuj(self):
+    def rzutuj2(self):
         lista_x = []
         lista_y = []
         for p in self._promienie:
             r, p, z, t, a = p.dajArg()
             x, y = self.wyznaczOdcinek(r, p, t)
+            lista_x.append(x)
+            lista_y.append(y)
+        return (lista_x, lista_y)
+#            
+    def rzutuj(self):
+        lista_x = []
+        lista_y = []
+        for p in self._promienie:
+            p0 = p.dajPunktKart()
+            p1 = p.dajPunkt2(p0, -200.0)
+            p2 = p.dajPunkt2(p0, 100.0)
+            x, y = ([p1[0], p2[0]], [p1[1], p2[1]])
             lista_x.append(x)
             lista_y.append(y)
         return (lista_x, lista_y)

@@ -35,7 +35,7 @@ class Ekran:
     def rysujPromienie(self, p):
         (xl, yl) = p.rzutuj()
         for x, y in zip(xl, yl):
-            self._detektor.plot(x, y)
+            self._detektor.plot(x, y)        
     
     def rysujProsta(self, prosta, d = 1000):
         x = []
