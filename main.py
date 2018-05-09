@@ -77,6 +77,14 @@ s_id = [i._id for i in s]
 ekran.rysujScyntylatory(s)
 ekran.rysujHistogramy(promienie_histogram, s_id, kat_histogram, trafienia_histogram)
 ekran.pokaz()
+
+with open("histogramy.csv", "w") as plik:
+    plik.write(";".join(map(str, promienie_histogram)) + "\n")
+    plik.write(";".join(map(str, s_id)) + "\n")
+    plik.write(";".join(map(str, kat_histogram)) + "\n")
+    for key, val in trafienia_histogram.iteritems():
+        plik.write(";".join(map(str, val)) + "\n")
+
 #end = time.time()
 #print(end-start)
 #/5)*5
