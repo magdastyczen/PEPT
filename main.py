@@ -21,6 +21,9 @@ det.dodajSegment(48, 42.50, 0, math.radians(7.5))
 det.dodajSegment(48, 46.75, math.radians(3.75), math.radians(7.5))
 det.dodajSegment(96, 57.50, math.radians(1.875), math.radians(3.75))
 
+scyntylatory = det.dajScyntylatory()
+scyntylatory_id = [s._id for s in scyntylatory]
+print("Scyntylatory: {}".format(scyntylatory_id))
 n_promieni = 200
 
 pr = Promieniowanie(n_promieni)
@@ -39,6 +42,7 @@ trafienia_histogram = {}
 for i, prn in enumerate(pr._promienie):
     proste = prn.dajProste()
     trafione = det.dajScyntylatoryTrafione(proste)
+
     s += trafione
     promienie_histogram[i] = len(trafione)
     kat_histogram += [int(math.degrees(prn._theta))]*len(trafione)
