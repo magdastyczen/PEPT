@@ -5,6 +5,7 @@ Created on Sat Dec 30 12:44:50 2017
 @author: magda
 """
 import scipy.stats as st
+from scipy.stats import cosine
 import math
 import numpy as np
 
@@ -19,10 +20,12 @@ class Promieniowanie:
         self._promienie = []
         rozkladT = rozkladTheta(a=0, b=90, name='rozkladTheta')
         theta = np.deg2rad(rozkladT.rvs(size=(n, 1)))
-        alpha = Promieniowanie.rozkladCos(n, 0, math.pi*2)
-        phi = Promieniowanie.rozkladCos(n)
+        #alpha = Promieniowanie.rozkladCos(n, 0, math.pi/2)
+        alpha = (np.arccos(2*np.random.rand(n)-1))*2
+        phi = (np.arccos(2*np.random.rand(n)-1))/2
         r = np.random.uniform(low=0, high=58.45, size=(n,1))
         z = np.random.uniform(low=0, high=25, size=(n,1))
+        
         
         for r, p, z, t, a in zip(r, phi, z, theta, alpha):
             self._promienie.append(Promien(r, p, z, t, a))
@@ -43,7 +46,7 @@ class Promieniowanie:
         for p in self._promienie:
             p0 = p.dajPunktKart()
             p1 = p.dajPunkt2(p0, -200.0)
-            p2 = p.dajPunkt2(p0, 100.0)
+            p2 = p.dajPunkt2(p0, 200.0)
             x, y = ([p1[0], p2[0]], [p1[1], p2[1]])
             lista_x.append(x)
             lista_y.append(y)
