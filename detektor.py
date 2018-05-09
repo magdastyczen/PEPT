@@ -38,12 +38,27 @@ class Detektor:
             wsp.append([r-self._h_scyn/2, theta0 + theta1 + theta_skok*i, z+self._d_scyn/2]) #D+
             self._segmenty[-1].dodajScyntylator(wsp)
 
-
     def dajScyntylatory(self):
         scyntylatory = []
         for segment in self._segmenty:
             scyntylatory += segment._scyntylatory
         return scyntylatory
+
+    @staticmethod
+    def odbijScyntylatorII(id):
+        if id < 25:
+            return 24 - id
+        elif id < 48:
+            return 48 - (id - 24)
+        elif id < 72:
+            return 47 + 72 - id
+        elif id < 96:
+            return 96 - id - 71
+        elif id < 144:
+            return 95 + 144 - id
+        else:
+            return 192 - id - 143
+
 
     def __str__(self):
         s = "Detektor sklada sie z {} segmentów.\n".format(len(self._segmenty))
