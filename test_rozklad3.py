@@ -17,7 +17,7 @@ det.dodajSegment(48, 42.50, 0, np.radians(7.5))
 det.dodajSegment(48, 46.75, np.radians(3.75), np.radians(7.5))
 det.dodajSegment(96, 57.50, np.radians(1.875), np.radians(3.75))
 
-n_promieni = 100
+n_promieni = 10000
 pr = Promieniowanie(n_promieni)
 X, Y, Z = [], [], []
 for p in pr._promienie:
@@ -27,7 +27,7 @@ for p in pr._promienie:
     Z.append(wsp[2][0])
 
 
-plt.scatter(X, Y, c=Z, s=10, cmap='Reds')
+plt.scatter(X, Y, c=Z, s=1, cmap='Reds')
 plt.xlim(0, 60)
 plt.ylim(0, 60)
 plt.show()

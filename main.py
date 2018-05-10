@@ -49,12 +49,14 @@ for i, prn in enumerate(pr._promienie):
     odbiteIV = []
     for t in trafione:
         odbiteII += [SCYNTYLATORY[det.odbijScyntylatorII(t._id)]]
-        #odbiteIII += [SCYNTYLATORY[det.odbijScyntylatorIII(t._id)]]
-        #odbiteIV += [SCYNTYLATORY[det.odbijScyntylatorIV(t._id)]]
+        odbiteIII += [SCYNTYLATORY[det.odbijScyntylatorIII(t._id)]]
+        odbiteIV += [SCYNTYLATORY[det.odbijScyntylatorIV(t._id)]]
 
     promienie_histogram[i] = len(trafione)
     promienie_histogram[i*2] = len(odbiteII)
-
+    promienie_histogram[i*3] = len(odbiteIII)
+    promienie_histogram[i*4] = len(odbiteIV)
+    
     kat_histogram += [int(math.degrees(prn._theta))]*len(trafione)
 
     if len(trafione) > 0:
