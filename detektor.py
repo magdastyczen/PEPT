@@ -59,26 +59,6 @@ class Detektor:
         else:
             return 192 - id - 143
 
-<<<<<<< HEAD
-    @staticmethod
-    def odbijScyntylatorIII(id):
-        if id < 25:
-            return id + 14
-        elif id < 96:
-            return id + 24
-        else:
-            return id + 48
-
-    @staticmethod
-    def odbijScyntylatorIV(id):
-        if id < 48:
-            return 48 - id
-        elif id < 96:
-            return 48 + 95 - id
-        else:
-            return 96 +191 - id
-=======
->>>>>>> 50aa5dda1f49d409d18ed2768e0d832bf38917fe
 
     def __str__(self):
         s = "Detektor sklada sie z {} segmentów.\n".format(len(self._segmenty))
