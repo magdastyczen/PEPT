@@ -60,7 +60,7 @@ class Ekran:
 
     def rysujHistogramy(self, histo1, histo2, histo3, histo4):
         #plt.figure()
-        fig, axes = plt.subplots(1, 3, sharey=True, tight_layout=True)
+        fig, axes = plt.subplots(3, 1, sharey=True, tight_layout=True)
         axes[0].hist(histo1, max(histo1))
         axes[0].axis([0, max(histo1), 0, len(histo1)])
         axes[0].grid(True)
@@ -76,7 +76,7 @@ class Ekran:
         axes[2].grid(True)
         axes[2].set_title("Kat trafienia")
 
-        fig2, axes2 = plt.subplots(1, len(histo4), sharey=True,
+        fig2, axes2 = plt.subplots(len(histo4), 1, sharey=True,
                                    tight_layout=True)
 
         i = 0
