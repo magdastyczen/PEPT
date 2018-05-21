@@ -8,6 +8,7 @@ import scipy.stats as st
 from scipy.stats import cosine
 import math
 import numpy as np
+import random
 
 from promien import Promien
 
@@ -22,9 +23,9 @@ class Promieniowanie:
         self._promienie = []
         while len(self._promienie) < n:
             rozkladT = rozkladTheta(a=0, b=90, name='rozkladTheta')
-            theta = np.deg2rad(rozkladT.rvs(size=(1, 1)))
+            theta = np.deg2rad(rozkladT.rvs(size=(1, 1)))*random.sample(set([-1, 1]), 1)
             alpha = (np.arccos(2*np.random.rand(1)-1))*2
-            phi = np.random.uniform(low=0, high=np.pi/2, size=(1,1))
+            phi = np.random.uniform(low=0, high=np.pi*2, size=(1,1))
             r = np.sqrt(np.random.uniform(low=0, high=Promieniowanie.R**2, size=(1,1)))
             z = np.random.uniform(low=0, high=25, size=(1,1))
             pr = Promien(r[0], phi[0], z[0], theta[0], alpha[0])
@@ -39,7 +40,6 @@ class Promieniowanie:
         y1 = np.sqrt(Promieniowanie.R**2 - wsp[0]**2) #x
         K = 1-(2*abs(y1)/(2*Promieniowanie.R))
         B = np.random.rand(1)
-        print("K = {}, B = {}".format(K, B))
         return B < K
 
     def rzutuj2(self):
