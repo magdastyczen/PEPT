@@ -15,6 +15,20 @@ import collections
 
 #start = time.time()
 
+# trafienia to lista 192 liczb
+# indeks to id scyntylatora, a wartosc to liczba trafien
+def normalizujTrafienia(trafienia, scyntylatory):
+    trafienia_przeskalowane = []
+    #iterujemy po wszystkich scyntylatorach i wymnazamy liczbe trafien przez odpowiedni wspolczynnik
+    for trafienie, scyntylator in zip(trafienia, scyntylatory):
+        trafienie_przeskalowane = skalujTrafienia(trafienie, scyntylator._kat)
+    return trafienia_przeskalowane
+
+def skalujTrafienia(liczbaTrafien, kat, A=0.7, B=1.9):
+    # tutaj leci Twoja funkcja
+    wsp = kat * A * B #czy cokolwiek tam ma byc
+    return liczbaTrafien * wsp #Tu zwracamy juz przeskalowana liczbe trafien w zaleznosci od kata
+
 det = Detektor()
 
 det.dodajSegment(48, 42.50, 0, math.radians(7.5))
@@ -25,7 +39,7 @@ SCYNTYLATORY = det.dajScyntylatory()
 scyntylatory_id = [s._id for s in SCYNTYLATORY]
 print("Scyntylatory: {}".format(scyntylatory_id))
 
-n_promieni = 1000
+n_promieni = 100
 
 pr = Promieniowanie(n_promieni)
 print(pr)
@@ -52,9 +66,18 @@ for i, prn in enumerate(pr._promienie):
         trafienia_histogram[len(trafione)] += [i._id for i in trafione]
     s += trafione
 
-
-print("Kat histogram: {}".format(kat_histogram))
 s_id = [i._id for i in s]
+
+#Obliczamy histogram liczby trafien - inicializujemy liste zerami
+trafienia_na_scyntylator = [0]*len(SCYNTYLATORY)
+#I uzupelniamy zgodnie z trafieniami
+for id in s_id:
+    trafienia_na_scyntylator[id] += 1
+
+# Majac histogram, mozemy przekazac go dalej do funkcji skalujacej trafienia,
+# ktora zwroci nam liste trafien znormalizowanych (index - id scyntylatora)
+trafienia_znormalizowane = normalizujTrafienia(trafienia_na_scyntylator, SCYNTYLATORY)
+
 
 ekran.rysujScyntylatory(s)
 ekran.rysujHistogramy(promienie_histogram, s_id, kat_histogram, trafienia_histogram)
@@ -66,6 +89,10 @@ with open("histogramy.csv", "w") as plik:
     plik.write(";".join(map(str, kat_histogram)) + "\n")
     for key, val in trafienia_histogram.iteritems():
         plik.write(";".join(map(str, val)) + "\n")
+
+with open("promienie.csv", "w") as plik:
+    wsp = [";".join(map(str, p.dajPunktKart().tolist())) for p in pr._promienie]
+    plik.write("\n".join(wsp))
 
 #end = time.time()
 #print(end-start)
