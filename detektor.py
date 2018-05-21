@@ -36,7 +36,7 @@ class Detektor:
             wsp.append([r+self._h_scyn/2, theta0 + theta2 + theta_skok*i, z+self._d_scyn/2]) #C+
             wsp.append([r-self._h_scyn/2, theta0 + theta1 + theta_skok*i, z-self._d_scyn/2]) #D-
             wsp.append([r-self._h_scyn/2, theta0 + theta1 + theta_skok*i, z+self._d_scyn/2]) #D+
-            self._segmenty[-1].dodajScyntylator(wsp)
+            self._segmenty[-1].dodajScyntylator(wsp, theta0 + theta_skok*i)
 
     def dajScyntylatory(self):
         scyntylatory = []
@@ -44,38 +44,46 @@ class Detektor:
             scyntylatory += segment._scyntylatory
         return scyntylatory
 
+
     @staticmethod
     def odbijScyntylatorII(id):
         if id < 25:
             return 24 - id
         elif id < 48:
-            return 48 - (id - 24)
+            return 48 + 24 - id
         elif id < 72:
             return 47 + 72 - id
         elif id < 96:
-            return 96 - id - 71
+            return 96 - id + 71
         elif id < 144:
             return 95 + 144 - id
         else:
-            return 192 - id - 143
+            return 192 - id + 143
 
     @staticmethod
     def odbijScyntylatorIII(id):
-        if id < 25:
+        if id < 23:
             return id + 14
-        elif id < 96:
+        elif id < 25:
+            return id - 14
+        elif id < 72:
             return id + 24
-        else:
+        elif id < 96:
+            return id - 24
+        elif id < 144:
             return id + 48
+        else:
+            return id - 48
 
     @staticmethod
     def odbijScyntylatorIV(id):
         if id < 48:
             return 48 - id
         elif id < 96:
-            return 48 + 95 - id
+            return 48 + (95 - id)
         else:
-            return 96 +191 - id
+            return 96 + (191 - id)
+
 
     def __str__(self):
         s = "Detektor sklada sie z {} segmentów.\n".format(len(self._segmenty))
@@ -334,6 +342,6 @@ class Segment:
         self._theta0 = theta0
         self._n = 0
 
-    def dodajScyntylator(self, w):
-        self._scyntylatory.append(Scyntylator(w))
+    def dodajScyntylator(self, w, kat):
+        self._scyntylatory.append(Scyntylator(w, kat))
         self._n += 1

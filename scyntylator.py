@@ -10,8 +10,9 @@ import math
 class Scyntylator:
     LICZBA = 0
 
-    def __init__(self, w = None):
+    def __init__(self, w, kat):
         self._wierzcholki = w
+        self._kat = kat
         self._id = Scyntylator.LICZBA
         Scyntylator.LICZBA += 1
 

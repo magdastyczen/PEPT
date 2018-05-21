@@ -25,7 +25,7 @@ SCYNTYLATORY = det.dajScyntylatory()
 scyntylatory_id = [s._id for s in SCYNTYLATORY]
 print("Scyntylatory: {}".format(scyntylatory_id))
 
-n_promieni = 200
+n_promieni = 20
 
 pr = Promieniowanie(n_promieni)
 print(pr)
@@ -35,8 +35,9 @@ ekran = Ekran()
 ekran.rysujDetektor(det)
 ekran.rysujPromienie(pr)
 
+s_Icwiartka = []
 s = []
-promienie_histogram = [0]*n_promieni*2
+promienie_histogram = [0]*n_promieni*4
 kat_histogram = []
 trafienia_histogram = {}
 
@@ -56,7 +57,7 @@ for i, prn in enumerate(pr._promienie):
     promienie_histogram[i*2] = len(odbiteII)
     promienie_histogram[i*3] = len(odbiteIII)
     promienie_histogram[i*4] = len(odbiteIV)
-    
+
     kat_histogram += [int(math.degrees(prn._theta))]*len(trafione)
 
     if len(trafione) > 0:
@@ -69,14 +70,15 @@ for i, prn in enumerate(pr._promienie):
             trafienia_histogram[len(odbiteII)] = []
         trafienia_histogram[len(odbiteII)] += [i._id for i in odbiteII]
 
-    trafione += odbiteII
+    s_Icwiartka += trafione
+    #trafione += odbiteII + odbiteIII + odbiteIV
     s += trafione
 
 
 print(trafienia_histogram)
 s_id = [i._id for i in s]
 
-ekran.rysujScyntylatory(s)
+ekran.rysujScyntylatory(s_Icwiartka)
 ekran.rysujHistogramy(promienie_histogram, s_id, kat_histogram, trafienia_histogram)
 ekran.pokaz()
 
