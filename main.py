@@ -8,6 +8,7 @@ Created on Fri Dec 29 10:18:24 2017
 from detektor import Detektor
 from promieniowanie import Promieniowanie
 from ekran import Ekran
+import numpy as np
 
 import math
 import time
@@ -26,7 +27,7 @@ def normalizujTrafienia(trafienia, scyntylatory):
 
 def skalujTrafienia(liczbaTrafien, kat, A=0.7, B=1.9):
     # tutaj leci Twoja funkcja
-    wsp = kat * A * B #czy cokolwiek tam ma byc
+    wsp = A / np.cos(np.pi-kat) #czy cokolwiek tam ma byc
     return liczbaTrafien * wsp #Tu zwracamy juz przeskalowana liczbe trafien w zaleznosci od kata
 
 det = Detektor()

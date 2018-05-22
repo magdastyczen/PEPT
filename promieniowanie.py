@@ -17,7 +17,7 @@ class rozkladTheta(st.rv_continuous):
         return ((7.89875 * 10**7) - (630481 * x) -(15940.4 * x**2) + (147.356 * x**3))/(3.09892*10**9) # Normalized over its range, in this case [0,90]
 
 class Promieniowanie:
-    R = 58.45
+    R = 58.15
     R2 = 3416.4026
     def __init__(self, n = 1000):
         self._promienie = []
@@ -29,18 +29,22 @@ class Promieniowanie:
             r = np.sqrt(np.random.uniform(low=0, high=Promieniowanie.R**2, size=(1,1)))
             z = np.random.uniform(low=0, high=25, size=(1,1))
             pr = Promien(r[0], phi[0], z[0], theta[0], alpha[0])
+            
             if self.sprawdzRozklad(pr):
                 self._promienie.append(pr)
+            else:
+                print('glupiajestem')    
 
     def sprawdzRozklad(self, promien):
-        # Y=sqrt(R^2-x1^2) d=2Y
-        #p= a/ cos(pi/2- kat) ;kat=0 i pi -> p=a; kat =pi/2 i 3/2 pi -> p=b
-        #if (k < (1-(d/2R)* (p/b) ))\
+            # Y=sqrt(R^2-x1^2) d=2Y
+            #p= a/ cos(pi/2- kat) ;kat=0 i pi -> p=a; kat =pi/2 i 3/2 pi -> p=b
+            #if (k < (1-(d/2R)* (p/b) ))\
         wsp = promien.dajPunktKart()
-        y1 = np.sqrt(Promieniowanie.R**2 - wsp[0]**2) #x
-        K = 1-(2*abs(y1)/(2*Promieniowanie.R))
+       # y1 = np.sqrt(Promieniowanie.R**2 - wsp[0]**2) 
+        K=((2*np.sqrt(Promieniowanie.R**2-wsp[0]**2))/(np.pi*Promieniowanie.R**2))
+        #K = 1-(2*abs(y1)/(2*Promieniowanie.R))
         B = np.random.rand(1)
-        return B < K
+        return B > K
 
     def rzutuj2(self):
         lista_x = []

@@ -19,7 +19,7 @@ class Scyntylator:
     def wspWalc(self):
         return self._wierzcholki
 
-    def wspKart(self):
+    def wspKart(self): 
         kart = []
         for p in self._wierzcholki:
             kart.append((p[0]*math.sin(p[1]), p[0]*math.cos(p[1]), p[2]))
@@ -32,7 +32,6 @@ class Scyntylator:
             x.append(p[0]*math.sin(p[1]))
             y.append(p[0]*math.cos(p[1]))
         return (x, y)
-
     def wspKart3D(self):
         x = []
         y = []
