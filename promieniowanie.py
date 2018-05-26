@@ -10,85 +10,75 @@ import math
 import numpy as np
 import random
 
-from scyntylator import Scyntylator 
+from scyntylator import Scyntylator
 from promien import Promien
 
 class rozkladTheta(st.rv_continuous):
     def _pdf(self,x):
         return ((7.89875 * 10**7) - (630481 * x) -(15940.4 * x**2) + (147.356 * x**3))/(3.09892*10**9) # Normalized over its range, in this case [0,90]
 
-class Promieniowanie: 
+class Promieniowanie:
     A = 0.7
     B = 1.9
     R1 = 42.5
     R2 = 46.75
-    R3 = 57.5 
+    R3 = 57.5
     R = 58.15
-    def __init__(self, n = 1000):
+    def __init__(self, n = 1000, scyntylatory = []):
         self._promienie = []
+        liczba_scyntylatorow = len(scyntylatory)
         while len(self._promienie) < n:
-            d = int(np.random.rand(1) * 196) #generacja nr detektpr
-           
-           
-           
-            i = (A * np.random.rand(1)) - A/2 #generacja punktu x o wsp w początku uk. wsp
-            j = (B * np.random.rand(1)) - B/2 #generacja punktu y o wsp w początku uk. wsp
-            
-            
-            
-            
-            
+            d = int(np.random.rand(1) * liczba_scyntylatorow) #generacja nr detektpr
+            wylosowany_scyntylator = scyntylatory[d]
+            if not self.sprawdzDlugosc(wylosowany_scyntylator):
+                print("Odrzucamy promien")
+                continue
+
+            i = (Promieniowanie.A * np.random.rand(1)) - Promieniowanie.A/2 #generacja punktu x o wsp w początku uk. wsp
+            j = (Promieniowanie.B * np.random.rand(1)) - Promieniowanie.B/2 #generacja punktu y o wsp w początku uk. wsp
+
+            przesuniecieY = 0
             if d < 48:
-                return j + R1
+                przesuniecieY = j + Promieniowanie.R1
             if d < 96:
-                return j + R2
+                przesuniecieY = j + Promieniowanie.R2
             else:
-                return j + R3
+                przesuniecieY = j + Promieniowanie.R3
 
+            x = i * np.cos(2*np.pi - wylosowany_scyntylator._kat )  - przesuniecieY * np.sin(2 * np.pi - wylosowany_scyntylator._kat)   # Odwolanie do kata!!!!!!
+            y = i * np.sin(2*np.pi - wylosowany_scyntylator._kat )  + przesuniecieY * np.cos(2 * np.pi - wylosowany_scyntylator._kat)
 
-
-            x= i * np.cos(2*np.pi - Scyntylator.(d_kat) )  - j * np.sin(2 * np.pi - Scyntylator.(d_kat))   # Odwolanie do kata!!!!!!
-            x= i * np.sin(2*np.pi - Scyntylator.(d_kat) )  + j * np.cos(2 * np.pi - Scyntylator.(d_kat)) 
-               
-        for X, Y in zip(x, y):
-            R = np.sqrt(X**2+Y**2)
-            r.append(R)
-            if X > 0:
-                phi.append(np.arcsin(Y/R))
+            r = np.sqrt(x**2+y**2)
+            if x > 0:
+                phi = (np.arcsin(y/r))
             else:
-                phi.append(- np.arcsin(Y/R) + np.pi)        
-               
-               
+                phi = (- np.arcsin(y/r) + np.pi)
+
             rozkladT = rozkladTheta(a=0, b=90, name='rozkladTheta')
-            theta = np.deg2rad(rozkladT.rvs(size=(1, 1)))*random.sample(set([-1, 1]), 1)
+            theta = np.deg2rad(rozkladT.rvs(size=(1, 1))) * random.sample(set([-1, 1]), 1) #odbicie rozkldu theta
             alpha = (np.arccos(2*np.random.rand(1)-1))*2
             z = np.random.uniform(low=0, high=25, size=(1,1))
-            pr = Promien(r[0], phi[0], z[0], theta[0], alpha[0])
-            
-            if self.sprawdzDlugosc(pr):
-                self._promienie.append(pr)
-            else:
-                print('glupiajestem')    
-    
+            pr = Promien(r[0], phi[0], z[0][0], theta[0][0], alpha[0])
+            self._promienie.append(pr)
+            print("Dodajemy promien {}".format(pr))
 
-    def sprawdzDlugosc(self, scyntylator):   
+
+    def sprawdzDlugosc(self, s):
+        wsp = s.wspKart() # [w1 ... w8]
+        Ax = wsp[0][0]
+        Cx = wsp[4][0]
         B = np.random.rand(1)
-        P = abs(wps1 - wsp2)/ np.sqrt(A**2 + B**2)
+        P = abs(Ax - Cx)/ np.sqrt(Promieniowanie.A**2 + Promieniowanie.B**2)
         return B > P
-    
-    def przesunieciePunktu(self, promien):
-    
-    def obrotpunktu(self, promien):
-        x = Promieniowanie.
-        
-        
-        
+
+
+
 #    def sprawdzRozklad(self, promien):
 #            # Y=sqrt(R^2-x1^2) d=2Y
 #            #p= a/ cos(pi/2- kat) ;kat=0 i pi -> p=a; kat =pi/2 i 3/2 pi -> p=b
 #            #if (k < (1-(d/2R)* (p/b) ))\
 #        wsp = promien.dajPunktKart()
-#        y1 = np.sqrt(Promieniowanie.R**2 - wsp[0]**2) 
+#        y1 = np.sqrt(Promieniowanie.R**2 - wsp[0]**2)
 #       # K=((2*np.sqrt(Promieniowanie.R**2-wsp[0]**2))/(np.pi*Promieniowanie.R**2))
 #        K = 1-(2*abs(y1)/(2*Promieniowanie.R))
 #        B = np.random.rand(1)

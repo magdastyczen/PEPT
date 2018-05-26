@@ -36,13 +36,15 @@ det.dodajSegment(48, 42.50, 0, math.radians(7.5))
 det.dodajSegment(48, 46.75, math.radians(3.75), math.radians(7.5))
 det.dodajSegment(96, 57.50, math.radians(1.875), math.radians(3.75))
 
+# SCYNTYLATORY[id] = lista scyntylatorow [s1 ... s 192]
 SCYNTYLATORY = det.dajScyntylatory()
+
 scyntylatory_id = [s._id for s in SCYNTYLATORY]
 print("Scyntylatory: {}".format(scyntylatory_id))
 
 n_promieni = 10000
 
-pr = Promieniowanie(n_promieni)
+pr = Promieniowanie(n_promieni, SCYNTYLATORY)
 print(pr)
 ekran = Ekran()
 #ekran.rysujPunkty(pr)
