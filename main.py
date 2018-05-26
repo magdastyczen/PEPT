@@ -40,7 +40,7 @@ SCYNTYLATORY = det.dajScyntylatory()
 scyntylatory_id = [s._id for s in SCYNTYLATORY]
 print("Scyntylatory: {}".format(scyntylatory_id))
 
-n_promieni = 100
+n_promieni = 10000
 
 pr = Promieniowanie(n_promieni)
 print(pr)
