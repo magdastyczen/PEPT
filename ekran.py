@@ -75,6 +75,8 @@ class Ekran:
         axes[2].axis([0, max(histo3), 0, len(histo3)])
         axes[2].grid(True)
         axes[2].set_title("Kat trafienia")
+        
+
 
         fig2, axes2 = plt.subplots(len(histo4), 1, sharey=True,
                                    tight_layout=True)

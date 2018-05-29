@@ -20,15 +20,14 @@ import collections
 # indeks to id scyntylatora, a wartosc to liczba trafien
 def normalizujTrafienia(trafienia, scyntylatory):
     trafienia_przeskalowane = []
-    #iterujemy po wszystkich scyntylatorach i wymnazamy liczbe trafien przez odpowiedni wspolczynnik
+    #iteruje po wszystkich scyntylatorach i wymnazam liczbe trafien przez odpowiedni wspolczynnik
     for trafienie, scyntylator in zip(trafienia, scyntylatory):
         trafienie_przeskalowane = skalujTrafienia(trafienie, scyntylator._kat)
     return trafienia_przeskalowane
 
 def skalujTrafienia(liczbaTrafien, kat, A=0.7, B=1.9):
-    # tutaj leci Twoja funkcja
-    wsp = A / np.cos(np.pi-kat) #czy cokolwiek tam ma byc
-    return liczbaTrafien * wsp #Tu zwracamy juz przeskalowana liczbe trafien w zaleznosci od kata
+    wsp = A / np.cos(np.pi-kat) 
+    return liczbaTrafien * wsp 
 
 det = Detektor()
 
@@ -71,14 +70,12 @@ for i, prn in enumerate(pr._promienie):
 
 s_id = [i._id for i in s]
 
-#Obliczamy histogram liczby trafien - inicializujemy liste zerami
+#Obliczam histogram liczby trafien 
 trafienia_na_scyntylator = [0]*len(SCYNTYLATORY)
-#I uzupelniamy zgodnie z trafieniami
 for id in s_id:
     trafienia_na_scyntylator[id] += 1
 
-# Majac histogram, mozemy przekazac go dalej do funkcji skalujacej trafienia,
-# ktora zwroci nam liste trafien znormalizowanych (index - id scyntylatora)
+# Histogram przekazuje do funkcji skalujacej trafienia i  zwroci liste trafien znormalizowanych (index - id scyntylatora)
 trafienia_znormalizowane = normalizujTrafienia(trafienia_na_scyntylator, SCYNTYLATORY)
 
 
@@ -99,4 +96,4 @@ with open("promienie.csv", "w") as plik:
 
 #end = time.time()
 #print(end-start)
-#/5)*5
+

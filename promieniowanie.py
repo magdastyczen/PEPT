@@ -31,7 +31,7 @@ class Promieniowanie:
             d = int(np.random.rand(1) * liczba_scyntylatorow) #generacja nr detektpr
             wylosowany_scyntylator = scyntylatory[d]
             if not self.sprawdzDlugosc(wylosowany_scyntylator):
-                print("Odrzucamy promien")
+               # print("Odrzucamy promien")
                 continue
 
             i = (Promieniowanie.A * np.random.rand(1)) - Promieniowanie.A/2 #generacja punktu x o wsp w początku uk. wsp
@@ -45,8 +45,8 @@ class Promieniowanie:
             else:
                 przesuniecieY = j + Promieniowanie.R3
 
-            x = i * np.cos(2*np.pi - wylosowany_scyntylator._kat )  - przesuniecieY * np.sin(2 * np.pi - wylosowany_scyntylator._kat)   # Odwolanie do kata!!!!!!
-            y = i * np.sin(2*np.pi - wylosowany_scyntylator._kat )  + przesuniecieY * np.cos(2 * np.pi - wylosowany_scyntylator._kat)
+            x = i * np.cos(np.pi/2 - wylosowany_scyntylator._kat )  - przesuniecieY * np.sin( np.pi/2 - wylosowany_scyntylator._kat)   # Odwolanie do kata!!!!!!
+            y = i * np.sin(np.pi/2 - wylosowany_scyntylator._kat )  + przesuniecieY * np.cos( np.pi /2 - wylosowany_scyntylator._kat)
 
             r = np.sqrt(x**2+y**2)
             if x > 0:
@@ -56,11 +56,12 @@ class Promieniowanie:
 
             rozkladT = rozkladTheta(a=0, b=90, name='rozkladTheta')
             theta = np.deg2rad(rozkladT.rvs(size=(1, 1))) * random.sample(set([-1, 1]), 1) #odbicie rozkldu theta
+            #theta = theta + np.pi if theta < 0 else theta
             alpha = (np.arccos(2*np.random.rand(1)-1))*2
             z = np.random.uniform(low=0, high=25, size=(1,1))
             pr = Promien(r[0], phi[0], z[0][0], theta[0][0], alpha[0])
             self._promienie.append(pr)
-            print("Dodajemy promien {}".format(pr))
+            #print("Dodajemy promien {}".format(pr))
 
 
     def sprawdzDlugosc(self, s):
@@ -71,19 +72,6 @@ class Promieniowanie:
         P = abs(Ax - Cx)/ np.sqrt(Promieniowanie.A**2 + Promieniowanie.B**2)
         return B > P
 
-
-
-#    def sprawdzRozklad(self, promien):
-#            # Y=sqrt(R^2-x1^2) d=2Y
-#            #p= a/ cos(pi/2- kat) ;kat=0 i pi -> p=a; kat =pi/2 i 3/2 pi -> p=b
-#            #if (k < (1-(d/2R)* (p/b) ))\
-#        wsp = promien.dajPunktKart()
-#        y1 = np.sqrt(Promieniowanie.R**2 - wsp[0]**2)
-#       # K=((2*np.sqrt(Promieniowanie.R**2-wsp[0]**2))/(np.pi*Promieniowanie.R**2))
-#        K = 1-(2*abs(y1)/(2*Promieniowanie.R))
-#        B = np.random.rand(1)
-#        print(K,B)
-#        return B > K
 
     def rzutuj2(self):
         lista_x = []

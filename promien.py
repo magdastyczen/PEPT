@@ -21,19 +21,13 @@ class Promien:
         return np.array([self._r * np.cos(self._phi),
                          self._r * np.sin(self._phi),
                          self._z])
-        
-#        return np.array([self._x,
-#                         self._y,
-#                         self._z])
 
 
         return np.array([self._r * np.cos(self._phi),
                          self._r * np.sin(self._phi),
                          self._z])
 
-    def dajProstaKart(self):
- #       a = (np.tan(np.pi/2 - self._theta))
- #       return (a, -1, self._y - a*self._x)        
+    def dajProstaKart(self):      
         a = (np.tan(np.pi/2 - self._theta))
         return (a, -1, np.sin(self._phi)*self._r - a*self._r*np.cos(self._phi))
 
@@ -55,5 +49,3 @@ class Promien:
 
     def dajArg(self):
          return (self._x, self._y, self._z, self._theta, self._alpha)
-
-#        return (self._r, self._phi, self._z, self._theta, self._alpha)
