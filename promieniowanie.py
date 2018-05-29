@@ -26,6 +26,7 @@ class Promieniowanie:
     R = 58.15
     def __init__(self, n = 1000, scyntylatory = []):
         self._promienie = []
+
         liczba_scyntylatorow = len(scyntylatory)
         while len(self._promienie) < n:
             d = int(np.random.rand(1) * liczba_scyntylatorow) #generacja nr detektpr
@@ -59,7 +60,7 @@ class Promieniowanie:
             #theta = theta + np.pi if theta < 0 else theta
             alpha = (np.arccos(2*np.random.rand(1)-1))*2
             z = np.random.uniform(low=0, high=25, size=(1,1))
-            pr = Promien(r[0], phi[0], z[0][0], theta[0][0], alpha[0])
+            pr = Promien(r[0], phi[0], z[0][0], theta[0][0], alpha[0], d)
             self._promienie.append(pr)
             #print("Dodajemy promien {}".format(pr))
 

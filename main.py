@@ -27,7 +27,7 @@ def normalizujTrafienia(trafienia, scyntylatory):
 
 def skalujTrafienia(liczbaTrafien, kat, A=0.7, B=1.9):
     wsp = A / np.cos(np.pi-kat) 
-    return liczbaTrafien * wsp 
+    return liczbaTrafien * wsp
 
 det = Detektor()
 
@@ -41,7 +41,7 @@ SCYNTYLATORY = det.dajScyntylatory()
 scyntylatory_id = [s._id for s in SCYNTYLATORY]
 print("Scyntylatory: {}".format(scyntylatory_id))
 
-n_promieni = 10000
+n_promieni = 2000
 
 pr = Promieniowanie(n_promieni, SCYNTYLATORY)
 print(pr)
@@ -56,10 +56,14 @@ s = []
 promienie_histogram = [0]*n_promieni
 kat_histogram = []
 trafienia_histogram = {}
+s24_trafienia = [] #katy trafien w scyntylator 24
+s12_krotnosc_trafien = []
+s119_krotnosc_trafien = []
 
 for i, prn in enumerate(pr._promienie):
     proste = prn.dajProste()
     trafione = det.dajScyntylatoryTrafione(proste)
+
     promienie_histogram[i] = len(trafione)
     kat_histogram += [int(math.degrees(prn._theta))]*len(trafione)
     if len(trafione) > 0:
@@ -68,7 +72,27 @@ for i, prn in enumerate(pr._promienie):
         trafienia_histogram[len(trafione)] += [i._id for i in trafione]
     s += trafione
 
+    # Zliczenie trafien w scyntylator 24
+    # Z promieni wygenerowanych poza jego obrebem
+    id_trafionych = [ts._id for ts in trafione]
+    if prn._idScyntylatora != 24:
+        if 24 in id_trafionych:
+            s24_trafienia += [np.rad2deg(prn._theta)]
+
+    # Krotnosc trafien
+    if 12 in id_trafionych:
+        s12_krotnosc_trafien += [len(trafione)]
+    if 119 in id_trafionych or 120 in id_trafionych:
+        s119_krotnosc_trafien += [len(trafione)]
+
 s_id = [i._id for i in s]
+
+#ile promieni generowanych jest w danym scyntylatorze
+x_promienie_na_scyntylator = range(len(SCYNTYLATORY))
+y_promienie_na_scyntylator = [0]*len(SCYNTYLATORY)
+for prn in pr._promienie:
+    y_promienie_na_scyntylator[prn._idScyntylatora] += 1
+ekran.rysujPromienieNaScyntylator(x_promienie_na_scyntylator, y_promienie_na_scyntylator)
 
 #Obliczam histogram liczby trafien 
 trafienia_na_scyntylator = [0]*len(SCYNTYLATORY)
@@ -80,7 +104,8 @@ trafienia_znormalizowane = normalizujTrafienia(trafienia_na_scyntylator, SCYNTYL
 
 
 ekran.rysujScyntylatory(s)
-ekran.rysujHistogramy(promienie_histogram, s_id, kat_histogram, trafienia_histogram)
+ekran.rysujHistogramy(promienie_histogram, s_id, kat_histogram, trafienia_histogram,
+                      s24_trafienia, s12_krotnosc_trafien, s119_krotnosc_trafien)
 ekran.pokaz()
 
 with open("histogramy.csv", "w") as plik:

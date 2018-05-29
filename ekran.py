@@ -58,21 +58,27 @@ class Ekran:
     def rysujPunktyGraniczne(self,phi):
         self._detektor.plot(57.5*math.cos(phi), 57.5*math.sin(phi),'ro')
 
-    def rysujHistogramy(self, histo1, histo2, histo3, histo4):
+    def rysujPromienieNaScyntylator(self, x, y):
+        axes, plot = plt.subplots(1, 1,)
+        plt.bar(x, y)
+        plt.xlabel("ID scyntylatora")
+        plt.ylabel("Liczba wygenerowanych promieni")
+
+    def rysujHistogramy(self, histo1, histo2, histo3, histo4, s24, s12, s119):
         #plt.figure()
         fig, axes = plt.subplots(3, 1, sharey=True, tight_layout=True)
         axes[0].hist(histo1, max(histo1))
-        axes[0].axis([0, max(histo1), 0, len(histo1)])
+        #axes[0].axis([0, max(histo1), 0, len(histo1)])
         axes[0].grid(True)
         axes[0].set_title("Liczba trafien na promien")
 
         axes[1].hist(histo2, max(histo2))
-        axes[1].axis([0, max(histo2), 0, len(histo2)])
+        #axes[1].axis([0, max(histo2), 0, len(histo2)])
         axes[1].grid(True)
         axes[1].set_title("Liczba trafien w scyntylator")
 
         axes[2].hist(histo3, max(histo3))
-        axes[2].axis([0, max(histo3), 0, len(histo3)])
+        #axes[2].axis([0, max(histo3), 0, len(histo3)])
         axes[2].grid(True)
         axes[2].set_title("Kat trafienia")
         
@@ -83,9 +89,31 @@ class Ekran:
 
         i = 0
         for key, val in histo4.iteritems():
-            print(val)
+            #print(val)
             axes2[i].hist(val, max(val))
-            axes2[i].axis([0, max(val), 0, len(val)])
+            #axes2[i].axis([0, max(val), 0, len(val)])
             axes2[i].grid(True)
             axes2[i].set_title("{} trafien".format(key))
             i += 1
+
+        #range = 1 if len(s24) == 0 else max(s24)
+        fig3, axes3 = plt.subplots(1, 1)
+        axes3.hist(s24, 180)
+        axes3.grid(True)
+        axes3.set_title("Liczba trafien w scyntylator 24 w zaleznosci od theta")
+        plt.ylabel("Liczba trafien")
+        plt.xlabel("Kat theta padajacego promienia")
+
+        fig4, axes4 = plt.subplots(1, 1)
+        axes4.hist(s12, max(s12)-1)
+        axes4.grid(True)
+        axes4.set_title("Liczba trafien w scyntylator 12 w zaleznosci od krotnosci")
+        plt.ylabel("Liczba trafien")
+        plt.xlabel("Ile detektorow trafil promien")
+
+        fig5, axes5 = plt.subplots(1, 1)
+        axes5.hist(s119, max(s119)-1)
+        axes5.grid(True)
+        axes5.set_title("Liczba trafien w scyntylatory 119 + 120 w zaleznosci od krotnosci")
+        plt.ylabel("Liczba trafien")
+        plt.xlabel("Ile detektorow trafil promien")

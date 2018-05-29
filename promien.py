@@ -10,12 +10,13 @@ Created on Fri Dec 29 13:19:40 2017
 import numpy as np
 
 class Promien:
-    def __init__(self, r = 0, phi = 0, z = 0, theta = 0, alpha = 0):
+    def __init__(self, r = 0, phi = 0, z = 0, theta = 0, alpha = 0, id = 0):
         self._phi = phi
         self._theta = theta
         self._alpha = alpha
         self._r = r
         self._z = z
+        self._idScyntylatora = id
 
     def dajPunktKart(self):
         return np.array([self._r * np.cos(self._phi),
