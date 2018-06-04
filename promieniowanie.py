@@ -71,7 +71,7 @@ class Promieniowanie:
         Cx = wsp[4][0]
         B = np.random.rand(1)
         P = abs(Ax - Cx)/ np.sqrt(Promieniowanie.A**2 + Promieniowanie.B**2)
-        return B > P
+        return B < P
 
 
     def rzutuj2(self):

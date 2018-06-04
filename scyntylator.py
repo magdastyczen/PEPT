@@ -16,6 +16,13 @@ class Scyntylator:
         self._id = Scyntylator.LICZBA
         Scyntylator.LICZBA += 1
 
+    def _str_(self):
+        ret_str = w.wspKart()
+        for w in self._wierzcholki:
+            ret_str +=  str(w)
+        return       
+        
+        
     def wspWalc(self):
         return self._wierzcholki
 
@@ -24,6 +31,7 @@ class Scyntylator:
         for p in self._wierzcholki:
             kart.append((p[0]*math.sin(p[1]), p[0]*math.cos(p[1]), p[2]))
         return kart
+         
 
     def wspKart2D(self):
         x = []

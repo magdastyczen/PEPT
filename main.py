@@ -41,7 +41,7 @@ SCYNTYLATORY = det.dajScyntylatory()
 scyntylatory_id = [s._id for s in SCYNTYLATORY]
 print("Scyntylatory: {}".format(scyntylatory_id))
 
-n_promieni = 2000
+n_promieni = 500
 
 pr = Promieniowanie(n_promieni, SCYNTYLATORY)
 print(pr)
@@ -75,8 +75,8 @@ for i, prn in enumerate(pr._promienie):
     # Zliczenie trafien w scyntylator 24
     # Z promieni wygenerowanych poza jego obrebem
     id_trafionych = [ts._id for ts in trafione]
-    if prn._idScyntylatora != 24:
-        if 24 in id_trafionych:
+    #if prn._idScyntylatora != 24:
+    if 24 in id_trafionych:
             s24_trafienia += [np.rad2deg(prn._theta)]
 
     # Krotnosc trafien
@@ -112,6 +112,10 @@ with open("histogramy.csv", "w") as plik:
     plik.write(";".join(map(str, promienie_histogram)) + "\n")
     plik.write(";".join(map(str, s_id)) + "\n")
     plik.write(";".join(map(str, kat_histogram)) + "\n")
+    plik.write(";".join(map(str, trafienia_histogram)) + "\n")
+    plik.write(";".join(map(str, s24_trafienia)) + "\n")
+    plik.write(";".join(map(str, s12_krotnosc_trafien)) + "\n")
+    plik.write(";".join(map(str, s119_krotnosc_trafien)) + "\n")
     for key, val in trafienia_histogram.iteritems():
         plik.write(";".join(map(str, val)) + "\n")
 

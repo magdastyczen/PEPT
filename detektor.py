@@ -43,8 +43,13 @@ class Detektor:
         for segment in self._segmenty:
             scyntylatory += segment._scyntylatory
         return scyntylatory
-
-
+    
+    def _str_(self):
+        for s in self._scyntylatory:
+            ret += str(s)
+        print(ret)
+    
+    
     @staticmethod
     def odbijScyntylatorII(id):
         if id < 25:
