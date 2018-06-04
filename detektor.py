@@ -339,6 +339,15 @@ class Detektor:
         plt.scatter(x, y)
         plt.show()
 
+    def __str__(self):
+        str_ret =  "=============================================="
+        str_ret += "================== DETEKTOR =================="
+        str_ret += "==============================================\n\n"
+        for s in self._segmenty:
+            str_ret += str(s)
+        return str_ret
+
+
 class Segment:
     def __init__(self, r=0, theta=0, theta0=0):
         self._scyntylatory = []
@@ -350,3 +359,10 @@ class Segment:
     def dodajScyntylator(self, w, kat):
         self._scyntylatory.append(Scyntylator(w, kat))
         self._n += 1
+
+    def __str__(self):
+        str_ret = "====== SEGMENT R = {} ======\n".format(self._r)
+        for s in self._scyntylatory:
+            str_ret += str(s) + "\n"
+        str_ret += "\n\n"
+        return str_ret
