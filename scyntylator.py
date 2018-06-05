@@ -16,11 +16,18 @@ class Scyntylator:
         self._id = Scyntylator.LICZBA
         Scyntylator.LICZBA += 1
 
-    def _str_(self):
-        ret = w.wspKart()
-        for w in self._wierzcholki:
-            ret_str +=  str(w)
-        return ret   
+#    def _str_(self):
+#        ret = w.wspKart()
+#        for w in self._wierzcholki:
+#            ret_str +=  str(w)
+#        return ret   
+
+    def __str__(self):
+        ret_str = "Scyntylator {}\t".format(self._id)
+        wsp = self.wspKart()
+        for w, nazwa in zip(wsp, ["A-", "A+", "B-", "B+", "C-", "C+", "D-", "D+"]):
+            ret_str += "{}:({:.2f}, {:.2f}, {:.2f})\t".format(nazwa, w[0], w[1], w[2])
+        return ret_str
         
         
     def wspWalc(self):

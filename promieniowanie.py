@@ -32,7 +32,7 @@ class Promieniowanie:
             d = int(np.random.rand(1) * liczba_scyntylatorow) #generacja nr detektpr
             wylosowany_scyntylator = scyntylatory[d]
             if not self.sprawdzDlugosc(wylosowany_scyntylator):
-               # print("Odrzucamy promien")
+               # print("Odrzucam promien")
                 continue
 
             i = (Promieniowanie.A * np.random.rand(1)) - Promieniowanie.A/2 #generacja punktu x o wsp w początku uk. wsp
@@ -46,7 +46,7 @@ class Promieniowanie:
             else:
                 przesuniecieY = j + Promieniowanie.R3
 
-            x = i * np.cos(np.pi/2 - wylosowany_scyntylator._kat )  - przesuniecieY * np.sin( np.pi/2 - wylosowany_scyntylator._kat)   # Odwolanie do kata!!!!!!
+            x = i * np.cos(np.pi/2 - wylosowany_scyntylator._kat )  - przesuniecieY * np.sin( np.pi/2 - wylosowany_scyntylator._kat)   # Odwolanie do kata!
             y = i * np.sin(np.pi/2 - wylosowany_scyntylator._kat )  + przesuniecieY * np.cos( np.pi /2 - wylosowany_scyntylator._kat)
 
             r = np.sqrt(x**2+y**2)
@@ -62,15 +62,19 @@ class Promieniowanie:
             z = np.random.uniform(low=0, high=25, size=(1,1))
             pr = Promien(r[0], phi[0], z[0][0], theta[0][0], alpha[0], d)
             self._promienie.append(pr)
-            #print("Dodajemy promien {}".format(pr))
+            #print("Dodaje promien {}".format(pr))
 
 
     def sprawdzDlugosc(self, s):
         wsp = s.wspKart() # [w1 ... w8]
         Ax = wsp[0][0]
+        Bx = wsp[2][0]
         Cx = wsp[4][0]
+        Dx = wsp[6][0]
+        k = abs(Ax - Cx)
+        l = abs(Bx - Dx)
         B = np.random.rand(1)
-        P = abs(Ax - Cx)/ np.sqrt(Promieniowanie.A**2 + Promieniowanie.B**2)
+        P = max(k,l)/ np.sqrt(Promieniowanie.A**2 + Promieniowanie.B**2)
         return B < P
 
 
