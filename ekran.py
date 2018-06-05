@@ -81,7 +81,8 @@ class Ekran:
         #axes[2].axis([0, max(histo3), 0, len(histo3)])
         axes[2].grid(True)
         axes[2].set_title("Kat trafienia")
-        
+        fig.savefig('histogramy.png')   # save the figure to file
+        plt.close(fig) 
 
 
         fig2, axes2 = plt.subplots(len(histo4), 1, sharey=True,
@@ -95,7 +96,9 @@ class Ekran:
             axes2[i].grid(True)
             axes2[i].set_title("{} trafien".format(key))
             i += 1
-
+        fig2.savefig('trafienia.png')   # save the figure to file
+        plt.close(fig2) 
+        
         #range = 1 if len(s24) == 0 else max(s24)
         fig3, axes3 = plt.subplots(1, 1)
         axes3.hist(s24, 180)
@@ -103,6 +106,8 @@ class Ekran:
         axes3.set_title("Liczba trafien w scyntylator 24 w zaleznosci od theta")
         plt.ylabel("Liczba trafien")
         plt.xlabel("Kat theta padajacego promienia")
+        fig3.savefig('Liczba_trafien_w_scyntylator_24_w_zaleznosci_od_theta.png')   # save the figure to file
+        plt.close(fig3) 
 
         fig4, axes4 = plt.subplots(1, 1)
         axes4.hist(s12, max(s12)-1)
@@ -110,6 +115,8 @@ class Ekran:
         axes4.set_title("Liczba trafien w scyntylator 12 w zaleznosci od krotnosci")
         plt.ylabel("Liczba trafien")
         plt.xlabel("Ile detektorow trafil promien")
+        fig4.savefig('Liczba_trafien_w_scyntylator_12_w_zaleznosci_od_krotnosci.png')   # save the figure to file
+        plt.close(fig4)         
 
         fig5, axes5 = plt.subplots(1, 1)
         axes5.hist(s119120, max(s119120)-1)
@@ -117,6 +124,8 @@ class Ekran:
         axes5.set_title("Liczba trafien w scyntylatory 119 lub 120 w zaleznosci od krotnosci")
         plt.ylabel("Liczba trafien")
         plt.xlabel("Ile detektorow trafil promien")
+        fig5.savefig('Liczba_trafien_w_scyntylator_119120_w_zaleznosci_od_krotnosci.png')   # save the figure to file
+        plt.close(fig5)         
         
         fig6, axes6 = plt.subplots(1, 1)
         axes6.hist(s119, max(s119)-1)
@@ -124,6 +133,9 @@ class Ekran:
         axes6.set_title("Liczba trafien w scyntylatory 119  w zaleznosci od krotnosci")
         plt.ylabel("Liczba trafien")
         plt.xlabel("Ile detektorow trafil promien")
+        fig6.savefig('Liczba_trafien_w_scyntylator_119_w_zaleznosci_od_krotnosci.png')   # save the figure to file
+        plt.close(fig6)         
+        
 
         fig7, axes7 = plt.subplots(1, 1)
         axes7.hist(s120, max(s120)-1)
@@ -131,6 +143,8 @@ class Ekran:
         axes7.set_title("Liczba trafien w scyntylator 120 w zaleznosci od krotnosci")
         plt.ylabel("Liczba trafien")
         plt.xlabel("Ile detektorow trafil promien")        
+        fig7.savefig('Liczba_trafien_w_scyntylator_120_w_zaleznosci_od_krotnosci.png')   # save the figure to file
+        plt.close(fig7)         
         
 #        fig8, axes8 = plt.subplots(1, 1)
 #        axes8.hist(s119i120, max(s120)-1)

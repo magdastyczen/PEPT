@@ -50,7 +50,7 @@ SCYNTYLATORY = det.dajScyntylatory()
 scyntylatory_id = [s._id for s in SCYNTYLATORY]
 print("Scyntylatory: {}".format(scyntylatory_id))
 
-n_promieni = 20000
+n_promieni = 2000
 
 pr = Promieniowanie(n_promieni, SCYNTYLATORY)
 print(pr)
@@ -147,11 +147,11 @@ ekran.pokaz()
 
 with open("histogramy.csv", "w") as plik:
 #    plik.write(";".join(map(str, promienie_histogram)) + "\n")
-#    plik.write(";".join(map(str, s_id)) + "\n")
-#    plik.write(";".join(map(str, kat_histogram)) + "\n")
-#    plik.write(";".join(map(str, trafienia_histogram)) + "\n")
+    plik.write(";".join(map(str, s_id)) + "\n")
+    plik.write(";".join(map(str, kat_histogram)) + "\n")
+    plik.write(";".join(map(str, trafienia_histogram)) + "\n")
 #    plik.write(";".join(map(str, s24_trafienia)) + "\n")
-    plik.write(";".join(map(str, s12_krotnosc_trafien)) + "\n")
+#    plik.write(";".join(map(str, s12_krotnosc_trafien)) + "\n")
 #    plik.write(";".join(map(str, s119_120_krotnosc_trafien)) + "\n")
 #    plik.write(";".join(map(str, s119_krotnosc_trafien)) + "\n")    
 #    plik.write(";".join(map(str, s120_krotnosc_trafien)) + "\n")
@@ -160,43 +160,43 @@ with open("histogramy.csv", "w") as plik:
 #    plik.write(";".join(map(str, s60_krotnosc_trafien)) + "\n") 
 #    plik.write(";".join(map(str, s59i60_krotnosc_trafien)) + "\n")
 #    plik.write(";".join(map(str, s12_trafienia)) + "\n")   
-    for key, val in s12_krotnosc_trafien.iteritems():
-        plik.write(";".join(map(str, val)) + "\n")
-
-with open("promienie_histogram.csv", "w") as plik:
-    plik.write(";".join(map(str, promienie_histogram)) + "\n")
-    for key, val in promienie_histogram.iteritems():
-        plik.write(";".join(map(str, val)) + "\n")
-
-with open("s_id.csv", "w") as plik:
-    plik.write(";".join(map(str, s_id)) + "\n")
-    for key, val in s_id.iteritems():
-        plik.write(";".join(map(str, val)) + "\n")
-
-with open("kat_histogram.csv", "w") as plik:
-    plik.write(";".join(map(str, kat_histogram)) + "\n")
-    for key, val in kat_histogram.iteritems():
-        plik.write(";".join(map(str, val)) + "\n")
-        
-with open("trafienia_histogram.csv", "w") as plik:
-    plik.write(";".join(map(str, trafienia_histogram)) + "\n")
     for key, val in trafienia_histogram.iteritems():
         plik.write(";".join(map(str, val)) + "\n")
 
-with open("s119_120_krotnosc_trafien.csv", "w") as plik:
-    plik.write(";".join(map(str, s119_120_krotnosc_trafien)) + "\n")
-    for key, val in s119_120_krotnosc_trafien.iteritems():
-        plik.write(";".join(map(str, val)) + "\n")        
-
-with open("s119_krotnosc_trafien.csv", "w") as plik:
-    plik.write(";".join(map(str, s119_krotnosc_trafien)) + "\n")
-    for key, val in s119_krotnosc_trafien.iteritems():
-        plik.write(";".join(map(str, val)) + "\n")
-
-with open("s120_krotnosc_trafien.csv", "w") as plik:
-    plik.write(";".join(map(str, s120_krotnosc_trafien)) + "\n")
-    for key, val in s120_krotnosc_trafien.iteritems():
-        plik.write(";".join(map(str, val)) + "\n")
+#with open("promienie_histogram.csv", "w") as plik:
+#    plik.write(";".join(map(str, promienie_histogram)) + "\n")
+#    for key, val in promienie_histogram.iteritems():
+#        plik.write(";".join(map(str, val)) + "\n")
+#
+#with open("s_id.csv", "w") as plik:
+#    plik.write(";".join(map(str, s_id)) + "\n")
+#    for key, val in s_id.iteritems():
+#        plik.write(";".join(map(str, val)) + "\n")
+#
+#with open("kat_histogram.csv", "w") as plik:
+#    plik.write(";".join(map(str, kat_histogram)) + "\n")
+#    for key, val in kat_histogram.iteritems():
+#        plik.write(";".join(map(str, val)) + "\n")
+#        
+#with open("trafienia_histogram.csv", "w") as plik:
+#    plik.write(";".join(map(str, trafienia_histogram)) + "\n")
+#    for key, val in trafienia_histogram.iteritems():
+#        plik.write(";".join(map(str, val)) + "\n")
+#
+#with open("s119_120_krotnosc_trafien.csv", "w") as plik:
+#    plik.write(";".join(map(str, s119_120_krotnosc_trafien)) + "\n")
+#    for key, val in s119_120_krotnosc_trafien.iteritems():
+#        plik.write(";".join(map(str, val)) + "\n")        
+#
+#with open("s119_krotnosc_trafien.csv", "w") as plik:
+#    plik.write(";".join(map(str, s119_krotnosc_trafien)) + "\n")
+#    for key, val in s119_krotnosc_trafien.iteritems():
+#        plik.write(";".join(map(str, val)) + "\n")
+#
+#with open("s120_krotnosc_trafien.csv", "w") as plik:
+#    plik.write(";".join(map(str, s120_krotnosc_trafien)) + "\n")
+#    for key, val in s120_krotnosc_trafien.iteritems():
+#        plik.write(";".join(map(str, val)) + "\n")
 
 #end = time.time()
 #print(end-start)
