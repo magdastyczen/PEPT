@@ -16,7 +16,7 @@ from promien import Promien
 class rozkladTheta(st.rv_continuous):
     def _pdf(self,x):
         return ((7.89875 * 10**7) - (630481 * x) -(15940.4 * x**2) + (147.356 * x**3))/(3.09892*10**9) # Normalized over its range, in this case [0,90]
-
+        
 class Promieniowanie:
     A = 0.7
     B = 1.9

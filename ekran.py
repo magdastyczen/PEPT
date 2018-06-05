@@ -64,7 +64,7 @@ class Ekran:
         plt.xlabel("ID scyntylatora")
         plt.ylabel("Liczba wygenerowanych promieni")
 
-    def rysujHistogramy(self, histo1, histo2, histo3, histo4, s24, s12, s119):
+    def rysujHistogramy(self, histo1, histo2, histo3, histo4, s24, s12, s119120, s119, s120, s119i120, s59, s60, s59i60, s12t):
         #plt.figure()
         fig, axes = plt.subplots(3, 1, sharey=True, tight_layout=True)
         axes[0].hist(histo1, max(histo1))
@@ -112,8 +112,57 @@ class Ekran:
         plt.xlabel("Ile detektorow trafil promien")
 
         fig5, axes5 = plt.subplots(1, 1)
-        axes5.hist(s119, max(s119)-1)
+        axes5.hist(s119120, max(s119120)-1)
         axes5.grid(True)
-        axes5.set_title("Liczba trafien w scyntylatory 119 + 120 w zaleznosci od krotnosci")
+        axes5.set_title("Liczba trafien w scyntylatory 119 lub 120 w zaleznosci od krotnosci")
         plt.ylabel("Liczba trafien")
         plt.xlabel("Ile detektorow trafil promien")
+        
+        fig6, axes6 = plt.subplots(1, 1)
+        axes6.hist(s119, max(s119)-1)
+        axes6.grid(True)
+        axes6.set_title("Liczba trafien w scyntylatory 119  w zaleznosci od krotnosci")
+        plt.ylabel("Liczba trafien")
+        plt.xlabel("Ile detektorow trafil promien")
+
+        fig7, axes7 = plt.subplots(1, 1)
+        axes7.hist(s120, max(s120)-1)
+        axes7.grid(True)
+        axes7.set_title("Liczba trafien w scyntylator 120 w zaleznosci od krotnosci")
+        plt.ylabel("Liczba trafien")
+        plt.xlabel("Ile detektorow trafil promien")        
+        
+#        fig8, axes8 = plt.subplots(1, 1)
+#        axes8.hist(s119i120, max(s120)-1)
+#        axes8.grid(True)
+#        axes8.set_title("Liczba trafien w scyntylator 119 i 120 w zaleznosci od krotnosci")
+#        plt.ylabel("Liczba trafien")
+#        plt.xlabel("Ile detektorow trafil promien") 
+#
+#        fig9, axes9 = plt.subplots(1, 1)
+#        axes9.hist(s120, max(s120)-1)
+#        axes9.grid(True)
+#        axes9.set_title("Liczba trafien w scyntylator 60 w zaleznosci od krotnosci")
+#        plt.ylabel("Liczba trafien")
+#        plt.xlabel("Ile detektorow trafil promien") 
+#
+#        fig10, axes10 = plt.subplots(1, 1)
+#        axes10.hist(s120, max(s120)-1)
+#        axes10.grid(True)
+#        axes10.set_title("Liczba trafien w scyntylator 59 w zaleznosci od krotnosci")
+#        plt.ylabel("Liczba trafien")
+#        plt.xlabel("Ile detektorow trafil promien") 
+#        
+#        fig11, axes11 = plt.subplots(1, 1)
+#        axes11.hist(s59i60, max(s120)-1)
+#        axes11.grid(True)
+#        axes11.set_title("Liczba trafien w scyntylator 59 i 60 w zaleznosci od krotnosci")
+#        plt.ylabel("Liczba trafien")
+#        plt.xlabel("Kat theta padajacego promienia")                 
+#
+#        fig12, axes12 = plt.subplots(1, 1)
+#        axes12.hist(s12t, 180)
+#        axes12.grid(True)
+#        axes12.set_title("Liczba trafien w scyntylator 12 w zaleznosci od theta")
+#        plt.ylabel("Liczba trafien")
+#        plt.xlabel("Kat theta padajacego promienia")        

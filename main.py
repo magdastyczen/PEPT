@@ -50,7 +50,7 @@ SCYNTYLATORY = det.dajScyntylatory()
 scyntylatory_id = [s._id for s in SCYNTYLATORY]
 print("Scyntylatory: {}".format(scyntylatory_id))
 
-n_promieni = 50000
+n_promieni = 20000
 
 pr = Promieniowanie(n_promieni, SCYNTYLATORY)
 print(pr)
@@ -67,7 +67,14 @@ kat_histogram = []
 trafienia_histogram = {}
 s24_trafienia = [] #katy trafien w scyntylator 24
 s12_krotnosc_trafien = []
+s119_120_krotnosc_trafien = []
 s119_krotnosc_trafien = []
+s120_krotnosc_trafien = []
+s119i120_krotnosc_trafien = []
+s59_krotnosc_trafien = []
+s60_krotnosc_trafien = []
+s59i60_krotnosc_trafien = []
+s12_trafienia = []
 
 for i, prn in enumerate(pr._promienie):
     proste = prn.dajProste()
@@ -88,12 +95,32 @@ for i, prn in enumerate(pr._promienie):
     if 24 in id_trafionych:
             s24_trafienia += [np.rad2deg(prn._theta)]
 
+    id_trafionych = [ts._id for ts in trafione]
+    #if prn._idScyntylatora != 24:
+    if 12 in id_trafionych:
+            s12_trafienia += [np.rad2deg(prn._theta)]
+
+
+
     # Krotnosc trafien
     if 12 in id_trafionych:
         s12_krotnosc_trafien += [len(trafione)]
     if 119 in id_trafionych or 120 in id_trafionych:
+        s119_120_krotnosc_trafien += [len(trafione)]
+    if 119 in id_trafionych:
         s119_krotnosc_trafien += [len(trafione)]
+    if 120 in id_trafionych:
+        s120_krotnosc_trafien += [len(trafione)]
+    if 119 in id_trafionych and 120 in id_trafionych:
+        s119i120_krotnosc_trafien += [len(trafione)]
+    if 59 in id_trafionych:
+        s59_krotnosc_trafien += [len(trafione)]
+    if 60 in id_trafionych:
+        s60_krotnosc_trafien += [len(trafione)]
+    if 60 in id_trafionych and 59 in id_trafionych:
+        s59i60_krotnosc_trafien += [len(trafione)]
 
+        
 s_id = [i._id for i in s]
 
 #ile promieni generowanych jest w danym scyntylatorze
@@ -114,23 +141,62 @@ trafienia_znormalizowane = normalizujTrafienia(trafienia_na_scyntylator, SCYNTYL
 
 ekran.rysujScyntylatory(s)
 ekran.rysujHistogramy(promienie_histogram, s_id, kat_histogram, trafienia_histogram,
-                      s24_trafienia, s12_krotnosc_trafien, s119_krotnosc_trafien)
+                      s24_trafienia, s12_krotnosc_trafien, s119_120_krotnosc_trafien, s119_krotnosc_trafien, s120_krotnosc_trafien,
+                      s119i120_krotnosc_trafien, s59_krotnosc_trafien, s59_krotnosc_trafien, s59i60_krotnosc_trafien, s12_trafienia)
 ekran.pokaz()
 
 with open("histogramy.csv", "w") as plik:
-    plik.write(";".join(map(str, promienie_histogram)) + "\n")
-    plik.write(";".join(map(str, s_id)) + "\n")
-    plik.write(";".join(map(str, kat_histogram)) + "\n")
-    plik.write(";".join(map(str, trafienia_histogram)) + "\n")
-    plik.write(";".join(map(str, s24_trafienia)) + "\n")
+#    plik.write(";".join(map(str, promienie_histogram)) + "\n")
+#    plik.write(";".join(map(str, s_id)) + "\n")
+#    plik.write(";".join(map(str, kat_histogram)) + "\n")
+#    plik.write(";".join(map(str, trafienia_histogram)) + "\n")
+#    plik.write(";".join(map(str, s24_trafienia)) + "\n")
     plik.write(";".join(map(str, s12_krotnosc_trafien)) + "\n")
-    plik.write(";".join(map(str, s119_krotnosc_trafien)) + "\n")
+#    plik.write(";".join(map(str, s119_120_krotnosc_trafien)) + "\n")
+#    plik.write(";".join(map(str, s119_krotnosc_trafien)) + "\n")    
+#    plik.write(";".join(map(str, s120_krotnosc_trafien)) + "\n")
+#    plik.write(";".join(map(str, s119i120_krotnosc_trafien)) + "\n")
+#    plik.write(";".join(map(str, s59_krotnosc_trafien)) + "\n")
+#    plik.write(";".join(map(str, s60_krotnosc_trafien)) + "\n") 
+#    plik.write(";".join(map(str, s59i60_krotnosc_trafien)) + "\n")
+#    plik.write(";".join(map(str, s12_trafienia)) + "\n")   
+    for key, val in s12_krotnosc_trafien.iteritems():
+        plik.write(";".join(map(str, val)) + "\n")
+
+with open("promienie_histogram.csv", "w") as plik:
+    plik.write(";".join(map(str, promienie_histogram)) + "\n")
+    for key, val in promienie_histogram.iteritems():
+        plik.write(";".join(map(str, val)) + "\n")
+
+with open("s_id.csv", "w") as plik:
+    plik.write(";".join(map(str, s_id)) + "\n")
+    for key, val in s_id.iteritems():
+        plik.write(";".join(map(str, val)) + "\n")
+
+with open("kat_histogram.csv", "w") as plik:
+    plik.write(";".join(map(str, kat_histogram)) + "\n")
+    for key, val in kat_histogram.iteritems():
+        plik.write(";".join(map(str, val)) + "\n")
+        
+with open("trafienia_histogram.csv", "w") as plik:
+    plik.write(";".join(map(str, trafienia_histogram)) + "\n")
     for key, val in trafienia_histogram.iteritems():
         plik.write(";".join(map(str, val)) + "\n")
 
-with open("promienie.csv", "w") as plik:
-    wsp = [";".join(map(str, p.dajPunktKart().tolist())) for p in pr._promienie]
-    plik.write("\n".join(wsp))
+with open("s119_120_krotnosc_trafien.csv", "w") as plik:
+    plik.write(";".join(map(str, s119_120_krotnosc_trafien)) + "\n")
+    for key, val in s119_120_krotnosc_trafien.iteritems():
+        plik.write(";".join(map(str, val)) + "\n")        
+
+with open("s119_krotnosc_trafien.csv", "w") as plik:
+    plik.write(";".join(map(str, s119_krotnosc_trafien)) + "\n")
+    for key, val in s119_krotnosc_trafien.iteritems():
+        plik.write(";".join(map(str, val)) + "\n")
+
+with open("s120_krotnosc_trafien.csv", "w") as plik:
+    plik.write(";".join(map(str, s120_krotnosc_trafien)) + "\n")
+    for key, val in s120_krotnosc_trafien.iteritems():
+        plik.write(";".join(map(str, val)) + "\n")
 
 #end = time.time()
 #print(end-start)
