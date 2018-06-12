@@ -59,10 +59,14 @@ class Ekran:
         self._detektor.plot(57.5*math.cos(phi), 57.5*math.sin(phi),'ro')
 
     def rysujPromienieNaScyntylator(self, x, y):
-        axes, plot = plt.subplots(1, 1,)
+        fig, axes = plt.subplots(1, 1,)
         plt.bar(x, y)
         plt.xlabel("ID scyntylatora")
         plt.ylabel("Liczba wygenerowanych promieni")
+        fig.savefig('detektoripromienie.png')
+        plt.close(fig)
+        
+
 
     def rysujHistogramy(self, histo1, histo2, histo3, histo4, s24, s12, s119120, s119, s120, s119i120, s59, s60, s59i60, s12t):
         #plt.figure()
@@ -83,7 +87,6 @@ class Ekran:
         axes[2].set_title("Kat trafienia")
         fig.savefig('histogramy.png')   # save the figure to file
         plt.close(fig) 
-
 
         fig2, axes2 = plt.subplots(len(histo4), 1, sharey=True,
                                    tight_layout=True)

@@ -50,7 +50,7 @@ SCYNTYLATORY = det.dajScyntylatory()
 scyntylatory_id = [s._id for s in SCYNTYLATORY]
 print("Scyntylatory: {}".format(scyntylatory_id))
 
-n_promieni = 2000
+n_promieni = 20000
 
 pr = Promieniowanie(n_promieni, SCYNTYLATORY)
 print(pr)
@@ -91,13 +91,13 @@ for i, prn in enumerate(pr._promienie):
     # Zliczenie trafien w scyntylator 24
     # Z promieni wygenerowanych poza jego obrebem
     id_trafionych = [ts._id for ts in trafione]
-    #if prn._idScyntylatora != 24:
-    if 24 in id_trafionych:
+    if prn._idScyntylatora != 24:
+        if 24 in id_trafionych:
             s24_trafienia += [np.rad2deg(prn._theta)]
 
     id_trafionych = [ts._id for ts in trafione]
-    #if prn._idScyntylatora != 24:
-    if 12 in id_trafionych:
+    if prn._idScyntylatora != 12:
+        if 12 in id_trafionych:
             s12_trafienia += [np.rad2deg(prn._theta)]
 
 
@@ -138,7 +138,6 @@ for id in s_id:
 # Histogram przekazuje do funkcji skalujacej trafienia i  zwroci liste trafien znormalizowanych (index - id scyntylatora)
 trafienia_znormalizowane = normalizujTrafienia(trafienia_na_scyntylator, SCYNTYLATORY)
 
-
 ekran.rysujScyntylatory(s)
 ekran.rysujHistogramy(promienie_histogram, s_id, kat_histogram, trafienia_histogram,
                       s24_trafienia, s12_krotnosc_trafien, s119_120_krotnosc_trafien, s119_krotnosc_trafien, s120_krotnosc_trafien,
@@ -146,50 +145,52 @@ ekran.rysujHistogramy(promienie_histogram, s_id, kat_histogram, trafienia_histog
 ekran.pokaz()
 
 with open("promienie_histogram.csv", "w") as plik:
-    plik.write(";".join(map(str, promienie_histogram)) + "\n")
+    plik.write("\n".join(map(str, promienie_histogram)) + "\n")
     
 with open("s_id.csv", "w") as plik:
-    plik.write(";".join(map(str, s_id)) + "\n")
+    plik.write("\n".join(map(str, s_id)) + "\n")
     
 with open("kat_histogram.csv", "w") as plik:
-    plik.write(";".join(map(str, kat_histogram)) + "\n")
+    plik.write("\n".join(map(str, kat_histogram)) + "\n")
     
 with open("s24_trafienia.csv", "w") as plik: 
-    plik.write(";".join(map(str, s24_trafienia)) + "\n")
+    plik.write("\n".join(map(str, s24_trafienia)) + "\n")
     
 with open("s12_krotnosc_trafien.csv", "w") as plik:
-    plik.write(";".join(map(str, s12_krotnosc_trafien)) + "\n")
+    plik.write("\n".join(map(str, s12_krotnosc_trafien)) + "\n")
     
 with open("s119_120_krotnosc_trafien.csv", "w") as plik:
-    plik.write(";".join(map(str, s119_120_krotnosc_trafien)) + "\n")
+    plik.write("\n".join(map(str, s119_120_krotnosc_trafien)) + "\n")
 
 with open("s119_krotnosc_trafien.csv", "w") as plik:    
-    plik.write(";".join(map(str, s119_krotnosc_trafien)) + "\n")    
+    plik.write("\n".join(map(str, s119_krotnosc_trafien)) + "\n")    
 
 with open("s120_krotnosc_trafien.csv", "w") as plik:
-    plik.write(";".join(map(str, s120_krotnosc_trafien)) + "\n")
+    plik.write("\n".join(map(str, s120_krotnosc_trafien)) + "\n")
 
 with open("s119i120_krotnosc_trafien.csv", "w") as plik:
-    plik.write(";".join(map(str, s119i120_krotnosc_trafien)) + "\n")
+    plik.write("\n".join(map(str, s119i120_krotnosc_trafien)) + "\n")
 
 with open("s59_krotnosc_trafien.csv", "w") as plik:
-    plik.write(";".join(map(str, s59_krotnosc_trafien)) + "\n")
+    plik.write("\n".join(map(str, s59_krotnosc_trafien)) + "\n")
 
 with open("s60_krotnosc_trafien.csv", "w") as plik:
-    plik.write(";".join(map(str, s60_krotnosc_trafien)) + "\n") 
+    plik.write("\n".join(map(str, s60_krotnosc_trafien)) + "\n") 
 
 with open("s59i60_krotnosc_trafien.csv", "w") as plik:
-    plik.write(";".join(map(str, s59i60_krotnosc_trafien)) + "\n")
+    plik.write("\n".join(map(str, s59i60_krotnosc_trafien)) + "\n")
 
 with open("s12_trafienia.csv", "w") as plik:
-    plik.write(";".join(map(str, s12_trafienia)) + "\n")   
+    plik.write("\n".join(map(str, s12_trafienia)) + "\n")   
     
 with open("trafienia_histogram.csv", "w") as plik:    
     for key, val in trafienia_histogram.iteritems():
         plik.write(";".join(map(str, val)) + "\n")
 
-
-
+with open("rozkladpromieniowaniaosx.csv", "w") as plik:    
+    plik.write("\n".join(map(str, x_promienie_na_scyntylator)) + "\n")     
+with open("rozkladpromieniowaniaosy.csv", "w") as plik:    
+    plik.write("\n".join(map(str, y_promienie_na_scyntylator)) + "\n") 
 
 
 
