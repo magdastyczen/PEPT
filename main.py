@@ -50,15 +50,15 @@ SCYNTYLATORY = det.dajScyntylatory()
 scyntylatory_id = [s._id for s in SCYNTYLATORY]
 print("Scyntylatory: {}".format(scyntylatory_id))
 
-n_promieni = 20000
+n_promieni = 2000
 
 pr = Promieniowanie(n_promieni, SCYNTYLATORY)
 print(pr)
 ekran = Ekran()
 #ekran.rysujPunkty(pr)
-
-ekran.rysujDetektor(det)
-ekran.rysujPromienie(pr)
+#
+#ekran.rysujDetektor(det)
+#ekran.rysujPromienie(pr)
 
 s_Icwiartka = []
 s = []
@@ -122,7 +122,7 @@ for i, prn in enumerate(pr._promienie):
 
         
 s_id = [i._id for i in s]
-
+print("s_Id: {}, trafione: {}".format(len(s_id), sum([len(t) for k, t in trafienia_histogram.iteritems()])))
 #ile promieni generowanych jest w danym scyntylatorze
 x_promienie_na_scyntylator = range(len(SCYNTYLATORY))
 y_promienie_na_scyntylator = [0]*len(SCYNTYLATORY)
@@ -142,7 +142,7 @@ ekran.rysujScyntylatory(s)
 ekran.rysujHistogramy(promienie_histogram, s_id, kat_histogram, trafienia_histogram,
                       s24_trafienia, s12_krotnosc_trafien, s119_120_krotnosc_trafien, s119_krotnosc_trafien, s120_krotnosc_trafien,
                       s119i120_krotnosc_trafien, s59_krotnosc_trafien, s59_krotnosc_trafien, s59i60_krotnosc_trafien, s12_trafienia)
-ekran.pokaz()
+#ekran.pokaz()
 
 with open("promienie_histogram.csv", "w") as plik:
     plik.write("\n".join(map(str, promienie_histogram)) + "\n")
